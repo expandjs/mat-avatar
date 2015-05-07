@@ -41,7 +41,7 @@ This element is used to display a material avatar.
 <link rel="import" href="../xp-pressed-state/xp-pressed-state.html">
 <link rel="import" href="../xp-targeter/xp-targeter.html">
 
-<polymer-element name="mat-avatar" constructor="MATAvatarElement" attributes="active activeBackground activeColor background big color data disabled download empty focused href icon iconSrc invokes pressed raster rel target toggleable">
+<polymer-element name="mat-avatar" constructor="MATAvatarElement" attributes="active activeBackground activeColor background big color data disabled download empty focused href icon iconSrc pressed raster rel target toggleable">
 
     <template>
         <link rel="stylesheet" href="../xp-pressed-state/xp-pressed-state.css">
@@ -109,7 +109,7 @@ This element is used to display a material avatar.
         <template context="{{}}" is="xp-anchor-state" id="xpAnchorState" anchor="{{$.matAvatarAnchor}}" download="{{download}}" href="{{href}}" rel="{{rel}}" target="{{target}}"></template>
         <template context="{{}}" is="xp-disabled-state" id="xpDisabledState" disabled="{{disabled}}"></template>
         <template context="{{}}" is="xp-focused-state" id="xpFocusedState" disabled="{{disabled}}" focused="{{focused}}"></template>
-        <template context="{{}}" is="xp-pressed-state" id="xpPressedState" active="{{active}}" disabled="{{disabled}}" invokes="{{invokes}}" pressed="{{pressed}}" target="{{target}}" toggleable="{{toggleable}}"></template>
+        <template context="{{}}" is="xp-pressed-state" id="xpPressedState" active="{{active}}" disabled="{{disabled}}" pressed="{{pressed}}" target="{{target}}" toggleable="{{toggleable}}"></template>
         <mat-paper id="matAvatarWrapper" background="{{(active && activeBackground) || background}}" brightness="placeholder" disabled="{{disabled}}" pressable="{{true}}">
             <a id="matAvatarAnchor">
                 <div id="matAvatarMain" horizontal layout center-center>
@@ -143,7 +143,6 @@ This element is used to display a material avatar.
              * @event xp-activate
              * @param {Element} firer
              * @param {Element} target
-             * @param {string} invokes
              * @param {boolean} isActive
              * @bubbles
              * @cancelable
@@ -279,15 +278,6 @@ This element is used to display a material avatar.
                  * @default ""
                  */
                 iconSrc: {reflect: true, value: ''},
-
-                /**
-                 * The target's method to invoke on press.
-                 *
-                 * @attribute invokes
-                 * @type string
-                 * @default "toggle"
-                 */
-                invokes: {reflect: true, value: 'toggle'},
 
                 /**
                  * If set to true, the element is pressed.
