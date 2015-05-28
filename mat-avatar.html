@@ -118,7 +118,7 @@ This element is used to display a material avatar.
                     <mat-icon id="matAvatarIcon" color="{{(active && activeColor) || color}}" disabled="{{disabled}}" empty="{{empty}}" name="{{icon}}" raster="{{raster}}" src="{{iconSrc}}"></mat-icon>
                 </div>
             </a>
-            <mat-ripple context="{{}}" id="matAvatarRipple" autoCenter="{{true}}" style="pointer-events: none"></mat-ripple>
+            <mat-ripple context="{{}}" id="matAvatarRipple" autoCenter="{{true}}" color="{{(active && activeColor) || color}}" style="pointer-events: none"></mat-ripple>
         </mat-paper>
     </template>
 
