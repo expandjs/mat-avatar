@@ -7,7 +7,34 @@ The complete set of contributors may be found at https://expandjs.github.io/CONT
 -->
 
 <!--
-This element is used to display a material avatar.
+An element used to display a [Material Design avatar](http://www.google.com/design/spec/style/imagery.html#imagery-ui-integration).
+
+It comes in two sizes, the default one of 40x40 and a `big` one of 64x64.
+
+```html
+<mat-avatar icon="social:person"></mat-avatar>
+<mat-avatar icon-src="http://example.com/avatars/michael.png" big></mat-avatar>
+```
+
+The avatar can also act as a standard anchor element linking to other resources.
+
+```html
+<mat-avatar href="https://github.com/ExpandJS" icon-src="https://avatars3.githubusercontent.com/u/10746153?v=3&s=40" target="_blank"></mat-avatar>
+```
+
+---
+
+## Styling
+
+The avatar's background and icon color can be changed accordingly to the
+[Material Design palette](http://www.google.com/design/spec/style/color.html#color-color-palette),
+both of which can be changed based on the `active` state.
+
+```html
+<mat-avatar icon="social:person" active-background="red" toggleable></mat-avatar>
+<mat-avatar icon="social:favorite" active-color="red" toggleable></mat-avatar>
+```
+
 
 @element mat-avatar
 @description A custom element used to display a Material Design avatar image
@@ -16,22 +43,22 @@ This element is used to display a material avatar.
 @homepage http://expandjs.com/elements/mat-avatar
 @demo http://expandjs.com/demo/mat-avatar
 
-@behavior xp-anchor-behavior http://expandjs.com/elements/xp-anchor-behavior
-@behavior xp-pressed-behavior http://expandjs.com/elements/xp-pressed-behavior
-@behavior xp-referral-behavior http://expandjs.com/elements/xp-referral-behavior
+@behavior xp-anchor-behavior /bower_components/xp-anchor-behavior/xp-anchor-behavior.html
+@behavior xp-pressed-behavior /bower_components/xp-pressed-behavior/xp-pressed-behavior.html
+@behavior xp-referral-behavior /bower_components/xp-referral-behavior/xp-referral-behavior.html
 
 @dependency polymer Polymer/polymer#^1.0.0
-@dependency expandjs ExpandJS/expandjs#0.9.4
+@dependency expandjs ExpandJS/expandjs#0.9.5
 @dependency iron-flex-layout PolymerElements/iron-flex-layout#^1.0.0
-@dependency mat-icon ExpandJS/mat-icon#0.9.4
-@dependency mat-paper ExpandJS/mat-paper#0.9.4
-@dependency mat-ripple ExpandJS/mat-ripple#0.9.4
-@dependency xp-anchor-behavior ExpandJS/xp-anchor-behavior#0.9.4
-@dependency xp-pressed-behavior ExpandJS/xp-pressed-behavior#0.9.4
-@dependency xp-referral-behavior ExpandJS/xp-referral-behavior#0.9.4
+@dependency mat-icon ExpandJS/mat-icon#0.9.5
+@dependency mat-paper ExpandJS/mat-paper#0.9.5
+@dependency mat-ripple ExpandJS/mat-ripple#0.9.5
+@dependency xp-anchor-behavior ExpandJS/xp-anchor-behavior#0.9.5
+@dependency xp-pressed-behavior ExpandJS/xp-pressed-behavior#0.9.5
+@dependency xp-referral-behavior ExpandJS/xp-referral-behavior#0.9.5
 
-@devDependency mat-demo ExpandJS/mat-demo#0.9.4
-@devDependency mat-icons ExpandJS/mat-icons#0.9.4
+@devDependency mat-demo ExpandJS/mat-demo#0.9.5
+@devDependency mat-icons ExpandJS/mat-icons#0.9.5
 -->
 
 <link rel="import" href="../polymer/polymer.html">
@@ -86,6 +113,7 @@ This element is used to display a material avatar.
             border-radius: inherit;
             display: block;
             height: 100%;
+            outline: 0;
             overflow: hidden;
             text-decoration: none;
         }
@@ -117,7 +145,7 @@ This element is used to display a material avatar.
 
     <template>
         <mat-paper id="matAvatarWrapper" background="[[_computeCurrentBackground(active, activeBackground, background)]]" brightness="placeholder" disabled="[[disabled]]" pressable>
-            <a id="matAvatarAnchor">
+            <a id="matAvatarAnchor" tabindex="-1">
                 <div id="matAvatarMain">
                     <mat-icon id="matAvatarIcon" color="[[_computeCurrentColor(active, activeColor, color)]]" disabled="[[disabled]]" empty="{{empty}}" name="[[icon]]" raster="{{raster}}" src="[[iconSrc]]"></mat-icon>
                 </div>
