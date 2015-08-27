@@ -73,77 +73,76 @@ both of which can be changed based on the `active` state.
 
 <dom-module id="mat-avatar">
 
-    <link rel="import" type="css" href="../xp-pressed-behavior/xp-pressed-behavior.css">
-
-    <style>
-        :host {
-            border-radius: 50%;
-            height: 40px;
-            margin: 4px;
-            width: 40px;
-        }
-
-        :host([big]) {
-            height: 64px;
-            margin: 0;
-            width: 64px;
-        }
-
-        :host([empty]) {
-            display: none !important;
-        }
-
-        :host #matAvatarWrapper,
-        :host #matAvatarMain {
-            border-radius: inherit;
-            height: 100%;
-            overflow: visible;
-        }
-
-        :host #matAvatarMain {
-            @apply(--layout-horizontal);
-            @apply(--layout-center-center);
-        }
-
-        :host([raster]) #matAvatarWrapper {
-            background: transparent !important;
-        }
-
-        :host #matAvatarAnchor {
-            border-radius: inherit;
-            display: block;
-            height: 100%;
-            outline: 0;
-            overflow: hidden;
-            text-decoration: none;
-        }
-
-        :host(:not([big])) #matAvatarAnchor:after {
-            bottom: -4px;
-            content: "";
-            left: -4px;
-            position: absolute;
-            right: -4px;
-            top: -4px;
-        }
-
-        :host #matAvatarIcon {
-            display: block;
-            position: relative;
-        }
-
-        :host([raster]) #matAvatarIcon {
-            border-radius: inherit;
-            height: 100%;
-            width: 100%;
-        }
-
-        :host([raster]) #matAvatarIcon::shadow #matIconAdaptee [icon] {
-            box-shadow: 0 0 0 1px hsla(0, 0%, 0%, 0.12) inset;
-        }
-    </style>
-
     <template>
+
+        <style include="xp-pressed-styles">
+            :host {
+                border-radius: 50%;
+                height: 40px;
+                margin: 4px;
+                width: 40px;
+            }
+
+            :host([big]) {
+                height: 64px;
+                margin: 0;
+                width: 64px;
+            }
+
+            :host([empty]) {
+                display: none !important;
+            }
+
+            :host #matAvatarWrapper,
+            :host #matAvatarMain {
+                border-radius: inherit;
+                height: 100%;
+                overflow: visible;
+            }
+
+            :host #matAvatarMain {
+                @apply(--layout-horizontal);
+                @apply(--layout-center-center);
+            }
+
+            :host([raster]) #matAvatarWrapper {
+                background: transparent !important;
+            }
+
+            :host #matAvatarAnchor {
+                border-radius: inherit;
+                display: block;
+                height: 100%;
+                outline: 0;
+                overflow: hidden;
+                text-decoration: none;
+            }
+
+            :host(:not([big])) #matAvatarAnchor:after {
+                bottom: -4px;
+                content: "";
+                left: -4px;
+                position: absolute;
+                right: -4px;
+                top: -4px;
+            }
+
+            :host #matAvatarIcon {
+                display: block;
+                position: relative;
+            }
+
+            :host([raster]) #matAvatarIcon {
+                border-radius: inherit;
+                height: 100%;
+                width: 100%;
+            }
+
+            :host([raster]) #matAvatarIcon::shadow #matIconAdaptee [icon] {
+                box-shadow: 0 0 0 1px hsla(0, 0%, 0%, 0.12) inset;
+            }
+        </style>
+
         <mat-paper id="matAvatarWrapper" background="[[_computeCurrentBackground(active, activeBackground, background)]]" brightness="placeholder" disabled="[[disabled]]" pressable>
             <a id="matAvatarAnchor" tabindex="-1">
                 <div id="matAvatarMain">
@@ -152,6 +151,7 @@ both of which can be changed based on the `active` state.
             </a>
             <mat-ripple context="[[self]]" id="matAvatarRipple" color="[[_computeCurrentColor(active, activeColor, color)]]" auto-center></mat-ripple>
         </mat-paper>
+
     </template>
 
     <script>
