@@ -7,7 +7,7 @@ The complete set of contributors may be found at https://expandjs.github.io/CONT
 -->
 
 <!--
-An element used to display a [Material Design avatar](http://www.google.com/design/spec/style/imagery.html#imagery-ui-integration).
+A custom element used to display a [Material Design avatar](http://www.google.com/design/spec/style/imagery.html#imagery-ui-integration).
 
 It comes in two sizes, the default one of 40x40 and a `big` one of 64x64.
 
@@ -36,50 +36,51 @@ both of which can be changed based on the `active` state.
 ```
 
 @element mat-avatar
-@description A custom element used to display a Material Design avatar image
-@keywords material design, material avatar, web app, html5, expandjs, web-components
+@description A custom element used to display a Material Design avatar
+@keywords material design, material avatar, expandjs, web app, custom elements, web-components
 @group contents
+
 @homepage http://expandjs.com/elements/mat-avatar
 @repository https://github.com/ExpandJS/mat-avatar
 @demo http://expandjs.com/demo/mat-avatar
 
 @behavior xp-anchor-behavior /bower_components/xp-anchor-behavior/xp-anchor-behavior.html
-@behavior xp-pressed-behavior /bower_components/xp-pressed-behavior/xp-pressed-behavior.html
-@behavior xp-referral-behavior /bower_components/xp-referral-behavior/xp-referral-behavior.html
+@behavior xp-overlay-injector /bower_components/xp-overlay/xp-overlay-injector.html
+@behavior mat-pressed-paper-behavior /bower_components/mat-pressed-behavior/mat-pressed-paper-behavior.html
 
-@dependency polymer Polymer/polymer#^1.1.0
-@dependency expandjs ExpandJS/expandjs#0.9.11
+@dependency polymer Polymer/polymer#^1.2.0
+@dependency expandjs ExpandJS/expandjs#0.10.0
 @dependency iron-flex-layout PolymerElements/iron-flex-layout#^1.0.0
-@dependency mat-icon ExpandJS/mat-icon#0.9.11
-@dependency mat-paper ExpandJS/mat-paper#0.9.11
-@dependency mat-ripple ExpandJS/mat-ripple#0.9.11
-@dependency xp-anchor-behavior ExpandJS/xp-anchor-behavior#0.9.11
-@dependency xp-pressed-behavior ExpandJS/xp-pressed-behavior#0.9.11
-@dependency xp-referral-behavior ExpandJS/xp-referral-behavior#0.9.11
+@dependency mat-icon ExpandJS/mat-icon#0.10.0
+@dependency mat-pressed-behavior ExpandJS/mat-pressed-behavior#0.10.0
+@dependency xp-anchor-behavior ExpandJS/xp-anchor-behavior#0.10.0
+@dependency xp-overlay ExpandJS/xp-overlay#0.10.0
 
-@devDependency mat-demo ExpandJS/mat-demo#0.9.11
-@devDependency mat-icons ExpandJS/mat-icons#0.9.11
+@devDependency mat-demo ExpandJS/mat-demo#0.10.0
+@devDependency mat-icons ExpandJS/mat-icons#0.10.0
 -->
 
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../expandjs/expandjs.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../mat-icon/mat-icon.html">
-<link rel="import" href="../mat-paper/mat-paper.html">
-<link rel="import" href="../mat-ripple/mat-ripple.html">
+<link rel="import" href="../mat-pressed-behavior/mat-pressed-paper-behavior.html">
+<link rel="import" href="../mat-pressed-behavior/mat-pressed-paper-styles.html">
 <link rel="import" href="../xp-anchor-behavior/xp-anchor-behavior.html">
-<link rel="import" href="../xp-pressed-behavior/xp-pressed-behavior.html">
-<link rel="import" href="../xp-referral-behavior/xp-referral-behavior.html">
+<link rel="import" href="../xp-anchor-behavior/xp-anchor-styles.html">
+<link rel="import" href="../xp-overlay/xp-overlay-injector.html">
 
 <dom-module id="mat-avatar">
 
-    <template>
+    <template strip-whitespace>
 
-        <style include="xp-pressed-styles"></style>
+        <style include="xp-anchor-styles"></style>
+        <style include="mat-pressed-paper-styles"></style>
 
         <style>
             :host {
                 border-radius: 50%;
+                display: inline-block;
                 height: 40px;
                 margin: 4px;
                 width: 40px;
@@ -91,68 +92,44 @@ both of which can be changed based on the `active` state.
                 width: 64px;
             }
 
-            :host([empty]) {
-                display: none !important;
-            }
-
-            :host #matAvatarWrapper,
-            :host #matAvatarMain {
-                border-radius: inherit;
-                height: 100%;
-                overflow: visible;
-            }
-
-            :host #matAvatarMain {
-                @apply(--layout-horizontal);
-                @apply(--layout-center-center);
-            }
-
-            :host([raster]) #matAvatarWrapper {
+            :host([raster]) {
                 background: transparent !important;
             }
 
-            :host #matAvatarAnchor {
+            :host .anchor:after {
+                min-height: 48px;
+                min-width: 48px;
+            }
+
+            :host .main {
+                @apply(--layout-horizontal);
+                @apply(--layout-center-center);
                 border-radius: inherit;
-                display: block;
                 height: 100%;
-                outline: 0;
-                overflow: hidden;
-                text-decoration: none;
             }
 
-            :host(:not([big])) #matAvatarAnchor:after {
-                bottom: -4px;
-                content: "";
-                left: -4px;
-                position: absolute;
-                right: -4px;
-                top: -4px;
-            }
-
-            :host #matAvatarIcon {
+            :host .icon {
                 display: block;
-                position: relative;
             }
 
-            :host([raster]) #matAvatarIcon {
+            :host([raster]) .icon {
                 border-radius: inherit;
                 height: 100%;
                 width: 100%;
             }
 
-            :host([raster]) #matAvatarIcon::shadow #matIconAdaptee [icon] {
+            :host([raster]) .icon > * {
                 box-shadow: 0 0 0 1px hsla(0, 0%, 0%, 0.12) inset;
             }
         </style>
 
-        <mat-paper id="matAvatarWrapper" background="[[_computeCurrentBackground(active, activeBackground, background)]]" brightness="placeholder" disabled="[[disabled]]" pressable>
-            <a id="matAvatarAnchor" tabindex="-1">
-                <div id="matAvatarMain">
-                    <mat-icon id="matAvatarIcon" color="[[_computeCurrentColor(active, activeColor, color)]]" disabled="[[disabled]]" empty="{{empty}}" name="[[icon]]" raster="{{raster}}" src="[[iconSrc]]"></mat-icon>
-                </div>
-            </a>
-            <mat-ripple context="[[self]]" id="matAvatarRipple" color="[[_computeCurrentColor(active, activeColor, color)]]" auto-center></mat-ripple>
-        </mat-paper>
+        <a class="anchor" tabindex="-1" on-click="_anchorHandler">
+            <div class="main">
+                <mat-icon class="icon" color="[[currentColor]]" disabled="[[disabled]]" name="[[icon]]" raster="{{raster}}" src="[[iconSrc]]"></mat-icon>
+            </div>
+        </a>
+
+        <div class="ripple-waves"></div>
 
     </template>
 
@@ -165,50 +142,14 @@ both of which can be changed based on the `active` state.
             // BEHAVIORS
             behaviors: [
                 Polymer.XPAnchorBehavior,
-                Polymer.XPPressedBehavior,
-                Polymer.XPReferralBehavior
+                Polymer.XPOverlayInjector,
+                Polymer.MatPressedPaperBehavior
             ],
 
             /*********************************************************************/
 
             // PROPERTIES
             properties: {
-
-                /**
-                 * The paper's active background color.
-                 *
-                 * @attribute active-background
-                 * @type string
-                 */
-                activeBackground: {
-                    reflectToAttribute: true,
-                    type: String,
-                    value: null
-                },
-
-                /**
-                 * The ink's active color.
-                 *
-                 * @attribute active-color
-                 * @type string
-                 */
-                activeColor: {
-                    reflectToAttribute: true,
-                    type: String,
-                    value: null
-                },
-
-                /**
-                 * The paper's background color.
-                 *
-                 * @attribute background
-                 * @type string
-                 */
-                background: {
-                    reflectToAttribute: true,
-                    type: String,
-                    value: null
-                },
 
                 /**
                  * If set to true, the element has 64px diameter instead of 40px.
@@ -224,41 +165,27 @@ both of which can be changed based on the `active` state.
                 },
 
                 /**
-                 * The ink's color.
+                 * The avatar's brightness.
+                 *
+                 * @attribute brightness
+                 * @type string
+                 * @default "placeholder"
+                 */
+                brightness: {
+                    reflectToAttribute: true,
+                    type: String,
+                    value: 'placeholder'
+                },
+
+                /**
+                 * The avatar's color.
                  *
                  * @attribute color
                  * @type string
                  */
                 color: {
                     reflectToAttribute: true,
-                    type: String,
-                    value: null
-                },
-
-                /**
-                 * The element's data.
-                 *
-                 * @attribute data
-                 * @type *
-                 * @notifies
-                 */
-                data: {
-                    notify: true,
-                    value: null
-                },
-
-                /**
-                 * If set to true, the element is hidden.
-                 *
-                 * @attribute empty
-                 * @type boolean
-                 * @notifies
-                 * @readonly
-                 */
-                empty: {
-                    notify: true,
-                    reflectToAttribute: true,
-                    type: Boolean
+                    type: String
                 },
 
                 /**
@@ -269,8 +196,7 @@ both of which can be changed based on the `active` state.
                  */
                 icon: {
                     reflectToAttribute: true,
-                    type: String,
-                    value: null
+                    type: String
                 },
 
                 /**
@@ -281,8 +207,7 @@ both of which can be changed based on the `active` state.
                  */
                 iconSrc: {
                     reflectToAttribute: true,
-                    type: String,
-                    value: null
+                    type: String
                 },
 
                 /**
@@ -302,21 +227,11 @@ both of which can be changed based on the `active` state.
 
             /*********************************************************************/
 
-            // COMPUTER
-            _computeCurrentBackground: function (active, activeBackground, background) {
-                return (active && activeBackground) || background;
-            },
-
-            // COMPUTER
-            _computeCurrentColor: function (active, activeColor, color) {
-                return (active && activeColor) || color;
-            },
-
-            /*********************************************************************/
-
             // LISTENER
-            ready: function () {
-                this._setAnchor(this.$.matAvatarAnchor);
+            created: function () {
+
+                // Classifying
+                this.classList.add('avatar');
             }
         });
     </script>
